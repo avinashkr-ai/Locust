@@ -4,9 +4,13 @@ Complete setup for load testing a FastAPI application using Locust.
 
 ## 🎥 Demo Video
 
-You can watch a short end‑to‑end demo of the setup, API, and Locust load testing here:
+You can watch a short end‑to‑end demo of the setup, API, and Locust load testing below:
 
-`demo.mov`
+<video width="800" controls>
+  <source src="demo.mov" type="video/quicktime">
+  <source src="demo.mov" type="video/mp4">
+  Your browser does not support the video tag. You can download the video as <a href="demo.mov">demo.mov</a>.
+</video>
 
 ## 📋 Prerequisites
 
