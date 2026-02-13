@@ -1,0 +1,67 @@
+"""
+Load Test Configuration Examples
+
+Copy any of these commands to test different scenarios
+"""
+
+# === BASIC TESTS ===
+
+# Quick Health Check (5 users, 30 seconds)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 5 --spawn-rate 1 --run-time 30s --headless
+
+# Standard Test (20 users, 2 minutes)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 20 --spawn-rate 4 --run-time 120s --headless
+
+# === REALISTIC LOAD ===
+
+# Moderate Load (50 users, 5 minutes)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 50 --spawn-rate 5 --run-time 300s --headless
+
+# Heavy Load (100 users, 5 minutes)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 100 --spawn-rate 10 --run-time 300s --headless
+
+# === STRESS TESTS ===
+
+# High Stress (200 users)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 200 --spawn-rate 20 --run-time 300s --headless
+
+# Extreme Stress (500 users) - Find breaking point
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 500 --spawn-rate 50 --run-time 180s --headless
+
+# === WITH REPORTS ===
+
+# Generate HTML Report
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 50 --spawn-rate 5 --run-time 120s \
+    --headless --html report.html
+
+# Generate CSV + HTML Reports
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 50 --spawn-rate 5 --run-time 120s \
+    --headless --html report.html --csv results
+
+# === SPIKE TESTS ===
+
+# Sudden Spike (0 to 100 users in 5 seconds)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 100 --spawn-rate 20 --run-time 60s --headless
+
+# === ENDURANCE TESTS ===
+
+# Long Running Test (30 minutes)
+locust -f locustfile.py --host=http://localhost:8000 \
+    --users 30 --spawn-rate 3 --run-time 1800s --headless
+
+# === WEB UI MODE ===
+
+# Interactive Mode (use browser to control)
+locust -f locustfile.py --host=http://localhost:8000
+
+# Web UI on Custom Port
+locust -f locustfile.py --host=http://localhost:8000 --web-port 8090
