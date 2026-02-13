@@ -40,10 +40,13 @@ def root():
         }
 
 @app.get("/items/")
-def read_all():
-    """Get all items from database"""
+def read_all(skip: int = 0, limit: int = 100):
+    """
+    Get items from database with pagination.
+    Defaults to the first 100 items to keep responses fast under heavy load.
+    """
     try:
-        items = db.get_all_items()
+        items = db.get_all_items(skip=skip, limit=limit)
         return items
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")

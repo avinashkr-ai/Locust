@@ -28,27 +28,27 @@ echo Using Python interpreter: %PYTHON_CMD%
 echo.
 
 REM Create virtual environment if it does not exist
-if not exist venv (
+if not exist .venv (
     echo ========================================
-    echo Step 0: Creating virtual environment (venv)
+    echo Step 0: Creating virtual environment (.venv)
     echo ========================================
     echo.
-    %PYTHON_CMD% -m venv venv
+    %PYTHON_CMD% -m venv .venv
     if errorlevel 1 (
         echo ❌ Failed to create virtual environment.
         pause
         exit /b 1
     )
 ) else (
-    echo Virtual environment "venv" already exists. Skipping creation.
+    echo Virtual environment ".venv" already exists. Skipping creation.
     echo.
 )
 
 REM Activate virtual environment
-if exist "venv\Scripts\activate.bat" (
-    call "venv\Scripts\activate.bat"
+if exist ".venv\Scripts\activate.bat" (
+    call ".venv\Scripts\activate.bat"
 ) else (
-    echo ❌ Could not find venv activation script at venv\Scripts\activate.bat
+    echo ❌ Could not find venv activation script at .venv\Scripts\activate.bat
     pause
     exit /b 1
 )

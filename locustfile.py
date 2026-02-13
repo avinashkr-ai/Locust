@@ -15,7 +15,8 @@ class APIPerformanceUser(HttpUser):
     wait_time = between(0.5, 2)
     
     # Track IDs that exist in the system (starting with seed data)
-    existing_ids = list(range(1, 51))  # IDs 1-50 from seed data
+    # Seed data currently creates IDs 1 through 50,000 in the database.
+    existing_ids = list(range(1, 50001))  # IDs 1-50,000 from seed data
 
     def on_start(self):
         """Called when a simulated user starts - optional setup"""
@@ -87,8 +88,8 @@ class APIPerformanceUser(HttpUser):
         Tests error handling by requesting items that don't exist.
         Weight: 1
         """
-        # Try to get an item with a very high ID that likely doesn't exist
-        fake_id = random.randint(10000, 99999)
+        # Request an ID that should not exist but stays within the 0–50,000 range
+        fake_id = 0  # ID 0 is not created by the seed script
         with self.client.get(f"/items/{fake_id}", name="/items/[id] (404)", catch_response=True) as response:
             if response.status_code == 404:
                 response.success()  # Expected 404

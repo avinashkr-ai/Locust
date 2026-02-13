@@ -16,16 +16,31 @@ def get_db_connection():
     """
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row  # Enable column access by name
+    # Apply performance-related PRAGMAs for better concurrent read performance
+    conn.execute("PRAGMA journal_mode=WAL;")
+    conn.execute("PRAGMA synchronous=NORMAL;")
+    conn.execute("PRAGMA temp_store=MEMORY;")
+    conn.execute("PRAGMA cache_size=-64000;")  # ~64MB page cache
     try:
         yield conn
     finally:
         conn.close()
 
-def get_all_items() -> List[Dict[str, Any]]:
-    """Get all items from database"""
+def get_all_items(skip: int = 0, limit: int = 100) -> List[Dict[str, Any]]:
+    """
+    Get items from database with simple pagination.
+    Limiting the number of returned rows keeps responses small and fast under load.
+    """
+    if skip < 0:
+        skip = 0
+    if limit <= 0:
+        limit = 100
     with get_db_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT id, name, price FROM items ORDER BY id")
+        cursor.execute(
+            "SELECT id, name, price FROM items ORDER BY id LIMIT ? OFFSET ?",
+            (limit, skip),
+        )
         rows = cursor.fetchall()
         return [dict(row) for row in rows]
 

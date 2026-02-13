@@ -9,6 +9,16 @@ echo ""
 echo "Locust Web UI will open on: http://localhost:8089"
 echo "========================================"
 echo ""
+
+# Activate virtual environment if present so 'locust' is available
+if [ -f ".venv/bin/activate" ]; then
+    # shellcheck disable=SC1091
+    source .venv/bin/activate
+else
+    echo "⚠️ Virtual environment '.venv' not found. Attempting to run with system Python."
+    echo "   If you see 'locust: command not found', run ./setup_and_start.sh once to create the .venv."
+fi
+
 echo "Opening browser in 3 seconds..."
 sleep 3
 

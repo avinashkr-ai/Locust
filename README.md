@@ -2,6 +2,12 @@
 
 Complete setup for load testing a FastAPI application using Locust.
 
+## 🎥 Demo Video
+
+You can watch a short end‑to‑end demo of the setup, API, and Locust load testing here:
+
+`demo.mov`
+
 ## 📋 Prerequisites
 
 - Python 3.8 or higher
@@ -22,14 +28,14 @@ cd fastapi-load-test
 
 **On Windows:**
 ```bash
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
 **On macOS/Linux:**
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python -m venv .venv   # or: python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 ### Step 3: Install Dependencies

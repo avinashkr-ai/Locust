@@ -12,7 +12,7 @@ import random
 # Database file path
 DB_PATH = "products.db"
 
-# Generate 5000 seed data items using for loop
+# Generate 50000 seed data items using for loop
 SEED_DATA = []
 
 # Product categories for variety
@@ -23,8 +23,8 @@ categories = ["Keyboard", "Mouse", "Monitor", "Headphones", "Speaker", "Webcam",
               "Microphone", "Camera", "Printer", "Scanner", "TV", "Projector", "Drone",
               "VR Headset", "Controller", "Hub", "Dock", "Stand"]
 
-# Generate 5000 items using for loop
-for i in range(1, 5001):
+# Generate 50000 items using for loop
+for i in range(1, 50001):
     # Select category (cycle through categories)
     category = categories[(i - 1) % len(categories)]
     

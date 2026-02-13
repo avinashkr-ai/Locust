@@ -9,10 +9,10 @@ echo ""
 # Step 0: Ensure Python, virtual environment, and dependencies
 #
 
-# Detect Python command
-PYTHON_CMD="python3"
+# Detect Python command (prefer 'python', fall back to 'python3')
+PYTHON_CMD="python"
 if ! command -v "$PYTHON_CMD" >/dev/null 2>&1; then
-    PYTHON_CMD="python"
+    PYTHON_CMD="python3"
 fi
 
 if ! command -v "$PYTHON_CMD" >/dev/null 2>&1; then
@@ -25,27 +25,27 @@ echo "Using Python interpreter: $PYTHON_CMD"
 echo ""
 
 # Create virtual environment if it does not exist
-if [ ! -d "venv" ]; then
+if [ ! -d ".venv" ]; then
     echo "========================================"
-    echo "Step 0: Creating virtual environment (venv)"
+    echo "Step 0: Creating virtual environment (.venv)"
     echo "========================================"
     echo ""
-    "$PYTHON_CMD" -m venv venv
+    "$PYTHON_CMD" -m venv .venv
     if [ $? -ne 0 ]; then
         echo "❌ Failed to create virtual environment."
         exit 1
     fi
 else
-    echo "Virtual environment 'venv' already exists. Skipping creation."
+    echo "Virtual environment '.venv' already exists. Skipping creation."
     echo ""
 fi
 
 # Activate virtual environment
-if [ -f "venv/bin/activate" ]; then
+if [ -f ".venv/bin/activate" ]; then
     # shellcheck disable=SC1091
-    source venv/bin/activate
+    source .venv/bin/activate
 else
-    echo "❌ Could not find venv activation script at venv/bin/activate."
+    echo "❌ Could not find venv activation script at .venv/bin/activate."
     exit 1
 fi
 
@@ -119,4 +119,5 @@ echo "Press CTRL+C to stop the server"
 echo "========================================"
 echo ""
 
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000 --workers 4
